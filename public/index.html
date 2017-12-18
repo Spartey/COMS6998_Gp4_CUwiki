@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html ng-app="app">
+	<head>
+		<link href="http://s3.amazonaws.com/codecademy-content/courses/ltp/css/shift.css" rel="stylesheet">
+		<link rel="stylesheet" href="http://s3.amazonaws.com/codecademy-content/courses/ltp/css/bootstrap.css">
+		<link href='https://fonts.googleapis.com/css?family=Josefin+Slab' rel='stylesheet' type='text/css'>
+		<!--<link rel="stylesheet" href="css/font.css">-->
+		<link rel="stylesheet" href="css/style.css">
+		<!-- font-awesome: dependency of textangular -->
+	    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
+		<title>CUwiki</title>
+		<link rel="shortcut icon" href="css/icon1.png" />
+		<meta charset="utf-8">
+	</head>
+
+	<body ng-controller="controller">
+		<div class="space">
+			<div class="container">
+					<p id="quote" >"quote" <br>--Norton Juster</p>
+					<!-- fb start -->
+					<div class="container">
+					<div class="text-center">
+						<p id="welcome">Login or Register with:</p>
+						<a href="/auth/login/facebook" id="notLogin" class="btn btn-primary"><span class="fa fa-facebook"></span> Facebook</a>
+						<a href="/auth/logout/facebook" class="btn btn-primary" id="logout" style="display:none"><span class="fa fa-facebook"></span> Logout</a>
+						<a href="homepage.html" id="homepage"style="display:none">Homepage</a>
+					</div>
+					</div>
+					<!-- fb end -->
+
+					<div id="status">
+					</div>
+					<!-- fb end -->
+			</div>
+		</div>
+		<!--this div is the header and the icon-->
+		<div class="nav">
+			<div class="container" id="title">
+				<div class="row">
+					<div class="col-md-4">
+					</div>
+					<div class="col-md-4 navTitle">
+						<h1>CUwiki</h1>
+						<img class="icon" src = "css/icon1.png">
+						<h1 id="user"></h1>
+					</div>
+					<div class="col-md-4">
+		            </div>
+		        </div>
+		    </div>
+		</div>
+		<div id="backImage">
+			<!-- this div is the searching box-->
+			<div class="searchingBox">
+			  <div class="container">
+				<p class="lead">
+					<div class="row">
+						<div class="col-md-4"></div>
+						<div class="search col-md-4">
+									<p class="lead" >
+									<form name="form" ng-submit="join()" class="navbar-form navbar-left" role="search">
+										<input type="text" name = "input" class="form-control large"
+										ng-model="example.text"
+										ng-pattern="example.word" required
+										ng-trim="false"
+										autofocus
+										aria-describedby="sizing-addon1"
+										placeholder="Room name">
+										<a href="#" class="btn btn-lg btn-default"
+										ng-click="join()"
+										>Search</a>
+									</form>
+								</p>
+						</div>
+						<div class="col-md-4"></div>
+					</div>
+				</p>
+			  </div>
+			</div>
+			<!--this div is the  discover existing rooms-->
+			<div class="discover">
+				<a href="#" id="discover" class="btn">Discover and Explore</a>
+			</div>
+
+			<div class="bottom">
+				<div class="container">
+					<br/>
+					<!-- <p>Copyright &copy Why Naming Again. All Rights Reserved</p> -->
+				</div>
+			</div>
+		</div>
+		<!-- Bootstrap core JavaScript
+			================================================== -->
+		<!-- Placed at the end of the document so the pages load faster -->
+		<script src="js/lib/jquery.min.js"></script>
+		<script src="js/lib/bootstrap.min.js"></script>
+
+		<!-- 1.4.2 -->
+		<script src="js/lib/angular.min.js"></script>
+
+		<script>
+		angular.module('app', [])
+		.controller('controller', ['$scope', '$location','$http' ,'$window', function($scope, $location, $http,$window) {
+			$scope.example = {
+				text: '',
+				word: /^\s*\w*\s*$/
+			};
+			$scope.join = function () {
+				$window.location.href = 'question.html#/' + $scope.example.text;
+			}
+			$http.get('/api/users/current')
+			.success(function(result){
+			if(! result){
+				console.log("Sorry you have to login");
+			}
+			else{
+				console.log(result.fb.name);
+				$scope.username = result.fb.name;
+				document.getElementById("user").innerHTML="Choose your ClassRoom "+result.fb.name;
+				document.getElementById("user").style.fontSize="20px";
+				//document.getElementById("user").style.display="inline";
+				document.getElementById("welcome").style.display="none";
+				document.getElementById("logout").style.display="";
+				document.getElementById("logout").style.float="right";
+				document.getElementById("notLogin").innerHTML="Homepage";
+				document.getElementById("notLogin").setAttribute("href","homepage.html");
+				document.getElementById("notLogin").style.float="right";
+				document.getElementById("notLogin").style.marginLeft="5px";
+			}
+		})
+		.error(function(result){
+			console.log("Sorry you encounter an error!");
+		});
+		}]);
+		</script>
+		<!--randomly show quote and background image-->
+		<script>
+			var image = [
+				"img/sea.jpg",
+				"img/faith.jpg",
+				"img/columbia.jpg",
+				"img/universe.jpg",
+				"img/candle.jpg",
+				"img/power.jpg",
+				"img/young.jpg"
+				];
+			var quote = [
+				"You can swim all day in the Sea of Knowledge and not get wet. <br>--Norton Juster",
+				"Sometimes life hits you in the head with a brick. Don't lose faith. <br>--Steve Jobs",
+				"In Thy light shall we see light<br>--Columbia University Motto",
+				"One thing only I know, and that is that I know nothing. <br>--Socrates",
+				"If you have knowledge, let others light their candles with it. <br>--Winston Churchill",
+				"I am not young enough to know everything.<br>--Oscar Wilde",
+				"Too young, too simple. <br>--The Elder Jiang"];
+			if(quote.length == image.length)
+			{
+				var size = image.length;
+				var x = Math.floor(size*Math.random());
+				document.getElementById("quote").innerHTML = quote[x];
+				var imgLocation = 'url(\"'+image[x]+'\")';
+				document.getElementById("backImage").style.backgroundImage = imgLocation;
+			}
+		</script>
+		<script>
+			$(window).on('hashchange', function() {
+				if (window.location.hash == '#/_=_'){
+					history.replaceState
+						? history.replaceState(null, null, window.location.href.split('#')[0])
+						: window.location.hash = '';
+				}
+			});
+		</script>
+		<!--Discover and explore-->
+		<script>
+			var room = ["coms4771", "coms4115", "coms4701", "coms4111", "cloudcomputing", "coms6998"];
+			var x = Math.floor(room.length*Math.random());
+			document.getElementById("discover").href = "question.html#/"+room[x];
+		</script>
+		<!--Test FB Login-->
+		<!--Todo:
+		1. after login, the Facebook login button will disappear and the homepage button will apear
+		2. after login, the "Login or register" will become "welcome back! username"
+		-->
+
+	</body>
+</html>

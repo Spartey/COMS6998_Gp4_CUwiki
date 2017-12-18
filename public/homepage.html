@@ -1,0 +1,436 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="homepage">
+<head>
+<meta charset="utf-8" />
+
+
+<title>Your Personal Homepage</title>
+<link rel="shortcut icon" href="css/icon1.png" />
+<link rel="stylesheet" href="css/homepage.css">
+<link rel="stylesheet" href="css/zhihu1.css">
+<link rel="stylesheet" href="css/zhihu2.css">
+<link href="http://s3.amazonaws.com/codecademy-content/courses/ltp/css/shift.css" rel="stylesheet">
+<link rel="stylesheet" href="http://s3.amazonaws.com/codecademy-content/courses/ltp/css/bootstrap.css">
+<link rel="shortcut icon" href="css/icon1.png" />
+
+</head>
+
+<body class="zhi" ng-controller="homepageMani" ng-init="returnFBusername()">
+
+    <nav class="navbar navbar-default navbar-carry-room navbar-inverse navbar-fixed-top">
+        <div class="container-fluid">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="index.html">Class Room</a>
+            </div>
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav navbar-right">
+                	 <li id="hmname"></li>
+                    <li ><img class="avatarNav" id="hmpic" class="avatarNav" src=""></li>
+                    <li><a href="/auth/logout/facebook">Logout</a></li>
+                </ul>
+        </div>
+    </nav>
+
+<div class="page-wraper">
+<div class="username">
+	<h1 id="username" style="color:rgb(80,80,80);"></h1>
+</div>
+<!--<div class="nav">
+	<a href="index.html">Go back to choose a class room</a>
+</div>-->
+
+
+<div class="profile-navbar clearfix">
+	<a class="item home first active"
+	href="index.html">
+	<i class="icon icon-profile-tab-home"></i><span class="hide-text">Mainpage</span>
+	</a>
+	<a class="item ">Likes
+	<span class="num">{{likes}}</span>
+	received
+	</a>
+	<a class="item ">Dislike
+	<span class="num">{{dislikes}}</span>
+	received
+	</a>
+	<a class="item ">Ask
+	<span class="num">{{totalQuestion}}</span>
+	questions
+	</a>
+	<!--
+	<a class="item ">Reply
+	<span class="num">number of reply</span>
+	</a>-->
+</div>
+<!-- Achievment section -->
+<div class="zm-profile-section-wrap achievement">
+	<div class="zm-profile-section-head">
+		<a class="zm-profile-section-title">
+			<h2 class="zm-profile-section-name">Achievement</h2>
+		</a>
+	</div>
+	<div class="achievementimg">
+		<img class="medal" id="medal" src="">
+		<p id="achievementWords" style="font-size:20px">No ahievement now! You have to work harder!</p>
+	</div>
+</div>
+
+<!-- Answer section-->
+
+<div class="zm-profile-section-wrap">
+	<div class="zm-profile-section-head">
+		<a class="zm-profile-section-title">
+			<h2 class="zm-profile-section-name">Your 3 most liked posts will be here:</h2>
+			<i class="zg-right zg-icon zm-profile-section-more-btn"></i>
+		</a>
+	</div>
+	<div class="zm-profile-section-list" id="zh-profile-answers-inner-list">
+
+		<div class="zm-profile-section-item zg-clear">
+			<a class="zm-profile-vote-count" id = "likes00" href ="" >
+				<div class="zm-profile-vote-num" style="display:none" id="likes0">Likes</div>
+				<div class="zm-profile-vote-type"><p id="like0" style="display:none" >Likes</p></div>
+			</a>
+		<!-- want to have three most recent answers here-->
+			<div class="zm-profile-section-main">
+				<h2 class="zm-profile-question">
+					<p id="question0" style="display:none">first question title
+					<p class="question_link question" id="q0" style="display:none">You haven't ask question yet!</p>
+					<button id = "button0" style ="font-size:15px; color:#259;background-color: #eff6fa; border: none;">Replies<br/></button>
+					<p id="reply0" style ="display: none"></p>
+				</h2>
+
+
+			</div>
+		</div>
+		<div class="zm-profile-section-item zg-clear">
+			<a class="zm-profile-vote-count" id = "likes01" href ="">
+				<div class="zm-profile-vote-num" style="display:none" id="likes1">Likes</div>
+				<div class="zm-profile-vote-type"><p id="like1" style="display:none">Likes</p></div>
+			</a>
+		<!-- want to have three most recent answers here-->
+			<div class="zm-profile-section-main">
+				<h2 class="zm-profile-question">
+					<p id="question1" style="display:none">second question title
+					<p class="question_link question" id="q1" style="display:none">Question2</p>
+					<button id = "button1" style ="font-size:15px; color:#259; background-color: #eff6fa; border: none;">Replies<br/></button>
+					<p id="reply1" style ="display: none"></p>
+				</h2>
+
+
+			</div>
+		</div>
+		<div class="zm-profile-section-item zg-clear">
+			<a class="zm-profile-vote-count" id = "likes02" href ="">
+				<div class="zm-profile-vote-num" style="display:none" id="likes2">Likes</div>
+				<div class="zm-profile-vote-type"><p id="like2"  style="display:none">Likes</p></div>
+			</a>
+		<!-- want to have three most recent answers here-->
+			<div class="zm-profile-section-main">
+				<h2 class="zm-profile-question">
+					<p id="question2" style="display:none">third question title
+					<p class="question_link question" id="q2" style="display:none">Question3</p>
+					<button id = "button2" style ="font-size:15px; color:#259;background-color: #eff6fa; border: none;">Replies<br/></button>
+					<p id="reply2" style ="display: none"></p>
+				</h2>
+	</div>
+</div>
+
+
+<!-- We have 20 JACK, 50 QUEEN, 100 KING-->
+
+</div>
+	<div class="zg-clear"></div>
+</div>
+
+</div>
+
+<script>
+/*FB.api('/me', function(response) {
+    alert("Name: "+ response.name + "\nFirst name: "+ response.first_name + "ID: "+response.id);
+    var img_link = "http://graph.facebook.com/"+response.id+"/picture"
+    var temp = document.getElementById("username");
+    temp.value = response.name;
+});*/
+
+</script>
+<!-- change the acheivement medal-->
+
+<script>
+/*var likes = {{number of likes get}};
+	if(likes > 0 && likes <50)
+	{
+		document.getElementById("medal").src = "img/medal/20.png";
+		document.getElementById("achievementWords").innerHTML = "You recieve more than 20 likes!"
+	}
+	else if(likes>50 && likes<100)
+	{
+		document.getElementById("medal").src = "img/medal/50.png";
+		document.getElementById("achievementWords").innerHTML = "You recieve more than 50 likes!"
+	}
+	else if(likes>100)
+	{
+		document.getElementById("medal").src = "img/medal/100.png";
+		document.getElementById("achievementWords").innerHTML = "You recieve more than 100 likes!"
+	}*/
+</script>
+   <!-- jQuery -->
+    <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.3.min.js"></script>
+
+    <!-- angularJs -->
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.7/angular.min.js"></script>
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.7/angular-sanitize.min.js"></script>
+    <script src="js/lib/Autolinker.min.js"></script>
+    <script>
+    angular.module('homepage', [])
+		.controller('homepageMani', ['$scope', '$http', '$window', function($scope, $http, $window) {
+			$scope.returnFBusername = function(){
+				$http.get('/api/users/current')
+				.success(function(result){
+				if(! result){
+					console.log("Sorry you have to login");
+				}
+				else{			
+					console.log(result.fb.name);
+					document.getElementById("hmname").innerHTML="<a>Hi, "+result.fb.name+"</a>";
+					document.getElementById("hmpic").src = result.photo; 
+					document.getElementById("username").innerHTML="How is your day, "+result.fb.name+"!";
+					document.getElementById("username").style.fontSize="25px";
+					var totalQuestion = result.questions.length;
+					$scope.totalQuestion = totalQuestion;
+					var totalLike = 0;
+					var totalDislike = 0;
+					//var a = "2015-11-19T09:08:59.081Z";
+					//var b = "2015-11-19T09:05:17.692Z";
+					if(totalQuestion == 0){
+						document.getElementById('q0').style.display="";
+						document.getElementById('q0').innerHTML="You haven't answer question yet!"
+						document.getElementById('q0').style.fontSize="20px";
+					}
+					var questionid = result.questionIds;
+
+					var updateLike = function(i){
+						totalLike += i;
+					}
+					var updateDislike = function(i){
+						totalDislike += i;
+					} 
+					for(var a=0 ; a<totalQuestion;a++)
+					{
+						updateLike(result.questions[a].upVote);
+						updateDislike(result.questions[a].downVote);
+					}
+					if(totalQuestion < 4)
+					{
+						for(var i=0; i<totalQuestion;i++){
+							document.getElementById('q'+i).style.display="";
+							document.getElementById('q'+i).innerHTML=result.questions[i].desc;
+							document.getElementById('q'+i).style.fontSize="20px";
+							document.getElementById('q'+i).style.color="rgb(100,100,100)";
+							document.getElementById('like'+i).style.display="";
+							var thislike = result.questions[i].upVote;
+							var thisdislike = result.questions[i].downVote;
+							document.getElementById('like'+i).innerHTML=thislike - thisdislike;
+							document.getElementById('likes'+i).style.display='';
+							document.getElementById('question'+i).innerHTML=result.questions[i].head;
+							document.getElementById('question'+i).style.fontSize="18px";
+							document.getElementById('question'+i).style.color="rgb(70,70,70)";
+							document.getElementById('question'+i).style.display="";
+						}
+
+					}
+					else{
+						var date = [];
+						var likenumber = [];
+						var dislikenumber = [];
+						for(var a=0; a<totalQuestion;a++){
+							date.push(result.questions[a].createdAt);
+							likenumber.push(result.questions[a].upVote);
+							dislikenumber.push(result.questions[a].downVote);
+						}
+						var findlargest = function(array){
+							if(array){
+								var index = 0;
+								var max = array[0];
+								var length = array.length;
+								for(var i=1; i<length;i++){
+									if(array[i]>max){
+										max = array[i];
+										index = i;
+									}
+								}
+								return index;
+							}
+						}
+						var findsecond = function(array){
+							if(array){
+								var index = 0;
+								var max = array[findlargest(array)];
+								var second = array[0];
+								var length = array.length;
+								for(var i=1;i<length;i++){
+									if(array[i] > second && array[i] <= max && date[i] != date[findlargest(array)]){
+										second = array[i];
+										index = i;
+									}
+								}
+								return index;
+							}
+						}
+						var findthird = function(array){
+							if(array){
+								var index = 0;
+								var second = array[findsecond(array)];
+								var length = array.length;
+								var third = array[0];
+								for(var i=1; i<length;i++){
+									if(array[i]>third && array[i]<=second && date[i] != date[findsecond(array)] && date[i] != date[findlargest(array)]){
+										third = array[i];
+										index = i;
+									}
+								}
+								return index;
+							}
+						}
+						
+						
+
+						var firstIndex = findlargest(likenumber);
+						document.getElementById('q0').style.display="";
+						document.getElementById('q0').innerHTML=result.questions[firstIndex].desc;
+						document.getElementById('like0').style.display="";
+						document.getElementById('like0').innerHTML= likenumber[firstIndex]-dislikenumber[firstIndex];
+						document.getElementById('likes0').style.display="";
+						var secondIndex = findsecond(likenumber);
+						document.getElementById('q1').style.display="";
+						document.getElementById('q1').innerHTML=result.questions[secondIndex].desc;
+						document.getElementById('like1').style.display="";
+						document.getElementById('like1').innerHTML= likenumber[secondIndex]-dislikenumber[secondIndex];
+						document.getElementById('likes1').style.display="";
+						var thirdIndex = findthird(likenumber); 
+						document.getElementById('q2').style.display="";
+						document.getElementById('q2').innerHTML=result.questions[thirdIndex].desc;
+						document.getElementById('like2').style.display="";
+						document.getElementById('like2').innerHTML= likenumber[thirdIndex]-dislikenumber[thirdIndex];
+						document.getElementById('likes2').style.display="";
+						//questoin font size
+						document.getElementById('q0').style.fontSize="20px";
+						document.getElementById('q1').style.fontSize="20px";
+						document.getElementById('q2').style.fontSize="20px";
+						//question font color
+						document.getElementById('q0').style.color="rgb(100,100,100)";
+						document.getElementById('q1').style.color="rgb(100,100,100)";
+						document.getElementById('q2').style.color="rgb(100,100,100)";
+						//question title
+						document.getElementById('question0').style.color="rgb(70,70,70)";
+						document.getElementById('question1').style.color="rgb(70,70,70)";
+						document.getElementById('question2').style.color="rgb(70,70,70)";
+						//question tille color
+						document.getElementById('question0').style.fontSize="18px";
+						document.getElementById('question1').style.fontSize="18px";
+						document.getElementById('question2').style.fontSize="18px";
+						//question title get
+						document.getElementById('question0').innerHTML=result.questions[firstIndex].head;
+						document.getElementById('question1').innerHTML=result.questions[secondIndex].head;
+						document.getElementById('question2').innerHTML=result.questions[thirdIndex].head;
+						//
+						document.getElementById('question0').style.display="";
+						document.getElementById('question1').style.display="";
+						document.getElementById('question2').style.display="";
+						//
+						document.getElementById('likes00').href = "http://ec2-52-70-38-116.compute-1.amazonaws.com:8080/question.html#/"+result.questions[firstIndex].roomId
+						document.getElementById('likes01').href = "http://ec2-52-70-38-116.compute-1.amazonaws.com:8080/question.html#/"+result.questions[secondIndex].roomId
+						document.getElementById('likes02').href = "http://ec2-52-70-38-116.compute-1.amazonaws.com:8080/question.html#/"+result.questions[thirdIndex].roomId
+						//
+						$http.get('/api/questions').success(function(result0){
+						len = result0.length;
+
+						var r0 = []; 
+						for(var a=0 ; a<len;a++) {
+							if (result0[a]._id == result.questions[firstIndex]._id) {
+								r0 = result0[a].reply;
+							}
+						}
+						r00 = document.getElementById('reply0');
+						r00.style.fontSize="15px";
+						for (var a=0 ; a<r0.length;a++) {
+							r00.innerHTML += r0[a].content +'<br/><br/>';
+						}
+						
+						var r1 = []; 
+						for(var a=0 ; a<len;a++) {
+							if (result0[a]._id == result.questions[secondIndex]._id) {
+								r1 = result0[a].reply;
+							}
+						}
+						r11 = document.getElementById('reply1');
+						r11.style.fontSize="15px";
+						for (var a=0 ; a<r1.length;a++) {
+							r11.innerHTML += r1[a].content +'<br/><br/>';
+						}
+
+						var r2 = []; 
+						for(var a=0 ; a<len;a++) {
+							if (result0[a]._id == result.questions[thirdIndex]._id) {
+								r2 = result0[a].reply;
+							}
+						}
+						r22 = document.getElementById('reply2');
+						r22.style.fontSize="15px";
+						for (var a=0 ; a<r2.length;a++) {
+							r22.innerHTML += r2[a].content +'<br/><br/>';
+						}
+
+
+
+
+						});
+						document.getElementById('button0').addEventListener("click", function(){
+   						 document.getElementById('reply0').style.display="block";}); 
+						document.getElementById('button1').addEventListener("click", function(){
+   						 document.getElementById('reply1').style.display="block";}); 
+						document.getElementById('button2').addEventListener("click", function(){
+   						 document.getElementById('reply2').style.display="block";}); 
+
+
+					}
+					
+					$scope.likes = totalLike;
+					$scope.dislikes = totalDislike;
+					if(totalLike >= 2 && totalLike < 5){
+						document.getElementById("medal").src = "img/medal/2.png";
+						document.getElementById("achievementWords").innerHTML = "You recieve 2+ likes!"
+					}
+					else if(totalLike>=5 && totalLike < 10){
+						document.getElementById("medal").src = "img/medal/5.png";
+						document.getElementById("achievementWords").innerHTML = "You recieve 5+ likes!"	
+					}
+					else if(totalLike >= 10){
+						document.getElementById("medal").src = "img/medal/10.png";
+						document.getElementById("achievementWords").innerHTML = "You recieve 10+ likes!"		
+					}
+				}
+				})
+				
+			}
+		}]);
+    </script>
+    <!-- Bootstrap -->
+    <script src="webjs/bootstrap.min.js"></script>
+
+    <!-- local scripts for our application -->
+    <script src="js/lib/ngStorage.min.js"></script>
+    <!--
+    <script src="js/app.js"></script>
+    <script src="js/controllers/homepage.js"></script>-->
+
+<input type="hidden" name="_xsrf" value="3d99b059b816aca9a5c5a74687857108"/>
+</body>
+</html>
